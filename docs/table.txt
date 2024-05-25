@@ -1,0 +1,61 @@
+What is a table?
+
+A table is a collection of related data. In relational databases, a table consists of
+a pre-defined number of columns with an 'unlimited' amount of rows. Tables also
+have associated with them some metadata. Some examples of table metadata are
+constraints, table name, column names, and column types.
+
+One way to implement a table using purely Python is by taking an object oriented
+approach and creating a class with methods that will allow the object to
+behave like a relational table.
+
+When creating a table, the database engine needs to know some things. These things
+are: table name, column names, column types, if a column is auto-incrementing,
+if a column is nullable, whether a column is the table's primary key, whether
+a column should have unique values, if the column is a foreign key to another table.
+
+A simple create table where all the user is required to provide is 
+table name, column names, and column types could look like the following:
+
+table_0 = Table(
+    table_name='table_0',
+    column_names=['column_0', 'column_1', 'column_2'],
+    column_types=['column_0_type', 'column_1_type', 'column_2_type']
+)
+
+To handle storage, the object would contain a dictionary of dictionaries. It would
+contain a data dictionary and a metadata dictionary. The nested dictionary
+would look similar to the following:
+
+table = {
+    "data": {
+        0: "column 0 data",
+        1: "column 1 data",
+        2: "column 2 data",
+        ...
+    },
+    "metadata": {
+        "column_names": {
+            0: "column 0 name",
+            1: "column 1 name",
+            2: "column 2 name",
+            ...
+        },
+        "column_types": {
+            0: "column 0 type",
+            1: "column 1 type",
+            2: "column 2 type",
+            ...
+        }
+    }
+}
+
+NOTE: The above example table does not include constraints in the table's metadata. This
+is because I'm currently unsure of how to implement them.
+
+Some basic behavior of a relational table would be your standard CRUD
+operations, that is Create Read Update Delete.
+
+The Create operation adds new information to a relational database. This information
+is in the form of a row or multiple rows. This operation is akin to the
+INSERT operator in SQL.

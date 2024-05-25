@@ -1,0 +1,111 @@
+{
+    "table_0": {
+        "data": [
+            [
+                "value_1",
+                0,
+                0,
+                1.0,
+                1.0,
+                0
+            ],
+            [
+                "value_2",
+                1,
+                1,
+                2.0,
+                2.0,
+                1
+            ],
+            [
+                "value_3",
+                2,
+                2,
+                3.0,
+                3.0,
+                2
+            ]
+        ],
+        "columns": {
+            "column_0": {
+                "type": "",
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_0"
+            },
+            "column_1": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": true,
+                "FK": null,
+                "column_name": "column_1"
+            },
+            "column_2": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_2"
+            },
+            "column_3": {
+                "type": 0.0,
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_3"
+            },
+            "column_4": {
+                "type": 0.0,
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_4"
+            },
+            "column_5": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_5"
+            }
+        }
+    },
+    "table_1": {
+        "data": [
+            [
+                "value_11",
+                1
+            ]
+        ],
+        "columns": {
+            "column_00": {
+                "type": "",
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_00"
+            },
+            "column_11": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": true,
+                "FK": {
+                    "table": "table_0",
+                    "column": "column_1",
+                    "on_update": "cascade",
+                    "on_delete": "do_nothing"
+                },
+                "column_name": "column_11"
+            }
+        }
+    }
+}
