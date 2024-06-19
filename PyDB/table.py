@@ -30,6 +30,10 @@ class Table:
         return self.table_name
 
     def build_table(self):
+        # needs error handling for two columns in the same table trying to
+        #  form a foreign key relation with the same column in a parent table
+        # should also have error handling for when a table will have more than
+        #  one PK, this database only allows one PK per table
         '''
         '''
         self.columns = {
@@ -45,6 +49,8 @@ class Table:
             except json.JSONDecodeError:
                 db_data = {}
 
+            # Check for multiple PK here
+
             for col_info in self.columns.values():
                 fk_info = col_info.get('FK')
                 if fk_info:
@@ -56,6 +62,9 @@ class Table:
                             type(col_info.get('type'))
                         ):
                             raise ValueError(f"FK Relation type mismatch for column {fk_info.get('column')}")
+                        
+                        if not db_data.get(fk_info.get('table')).get('columns')[fk_info.get('column')]['PK']:
+                            raise ValueError(f"Parent is not a primary key.")
 
             if self.table_name not in db_data:
                 table_base = {
@@ -122,8 +131,87 @@ class Table:
         self.data.append(row_data)
         self.save_data()
 
-    def update_row(self, index: int, row_data: List[Any]):
-        pass
+    def update_row(self, column_names: List[str], column_values: List[Any], conditional_column_name: str, conditional_column_value: Any):
+        # update <table> set column_1 = value_1, column_2 = value_2, ..., where <condition>
+        # this update will only handle one conditional statement
+        #  the conditional statement must include the table's primary key
+        # this update will handle n number of updates to the table where n is 
+        #  the number of columns - 1 as update will not change the value of a primary key
+
+        # so check if primary key
+        # check if input data type matches column type
+        # check the number of rows being updated
+
+        # Get the indices of the columns to be updated
+        row_indices = []
+        for col_name in column_names:
+            index = [idx for idx, key in enumerate(list(self.columns.items())) if key[0] == col_name]
+            row_indices.append(index)
+
+        # Check that row_indices length equals column_names length
+        if not len(row_indices) == len(column_names):
+            raise ValueError("One or more columns doesn't exist in table.")
+        
+        # Check if the number of indices exceeds n-m where n=num_columns and m=num_primary_keys
+        if len(row_indices) > len(self.columns):
+            raise ValueError("Too many columns present in update statement.")
+        
+        # Check if the conditional column name points to a primary key
+        if not self.columns[conditional_column_name]['PK']:
+            raise ValueError("Conditional column name is not a primary key.")
+        
+        # Iterate through column_names, column_values to ensure
+        #  data type matching
+        # This may be able to be done inside the row_indices for loop
+        for col_name in column_names:
+            pass
+        return None
+
+    def delete_row(self, column_name: str, column_value: Any):
+        # DELETE FROM <table> WHERE <column> <operator> <value>
+        # 
+        # Check if primary key
+        # Check if input data type matches what the column type is
+        # Grab index of column somehow
+        # This method functions correctly but needs to be expanded upon
+        #  raise custom errors
+        #  should table level check foreign key relations?
+
+        #  currently does not handle > 1 primary keys
+
+        index = [idx for idx, key in enumerate(list(self.columns.items())) if key[0] == column_name]
+        if len(index) > 1:
+            raise ValueError("Identical column names.")
+
+        if not self.columns[column_name]['PK']:
+            raise ValueError("Column not a primary key.")
+
+        if not isinstance(column_value, type(self.columns[column_name]['type'])):
+            raise ValueError("There is a type mismatch.")
+
+        for row in self.data:
+            if row[index[0]] == column_value:
+                self.data.remove(row)
+                self.save_data()
+
+# table_naught = Table(
+#     filepath,
+#     table_name="table_naught",
+#     columns={
+#         'column_naught': {
+#             'type': int(),
+#             'auto_inc': False,
+#             'nullable': False,
+#             'PK': True,
+#             'FK': {
+#                 'table': 'table_0',
+#                 'column': 'column_1',
+#                 'on_update': 'cascade',
+#                 'on_delete': 'do_nothing'
+#             }
+#         }
+#     }
+# )
 
 table_0 = Table(
     filepath,
@@ -145,7 +233,7 @@ table_0 = Table(
             'type': float(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
         },
         'column_5': {
-            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': False, 'FK': None
+            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': True, 'FK': None
         },
     }
 )
@@ -176,6 +264,10 @@ table_0.insert_row(['value_1', 1.0, 1.0])
 table_0.insert_row(['value_2', 2.0, 2.0])
 table_0.insert_row(['value_3', 3.0, 3.0])
 table_1.insert_row(['value_11', 1])
+
+table_0.delete_row('column_1', 2)
+
+table_0.update_row(['column_3', 'column_4', 'column_5'], [2.2, 3.3, 9],  'column_1', 3)
 
 print(table_0.load_data())
 print(table_1.load_data())

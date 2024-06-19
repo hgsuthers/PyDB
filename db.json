@@ -16,14 +16,6 @@
                 2.0,
                 2.0,
                 1
-            ],
-            [
-                "value_3",
-                2,
-                2,
-                3.0,
-                3.0,
-                2
             ]
         ],
         "columns": {
@@ -71,7 +63,7 @@
                 "type": 0,
                 "auto_inc": true,
                 "nullable": false,
-                "PK": false,
+                "PK": true,
                 "FK": null,
                 "column_name": "column_5"
             }
