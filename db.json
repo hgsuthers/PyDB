@@ -1,31 +1,6 @@
 {
     "table_0": {
-        "data": [
-            [
-                "value_1",
-                0,
-                0,
-                1.0,
-                1.0,
-                0
-            ],
-            [
-                "value_2",
-                1,
-                1,
-                9.9,
-                3.9,
-                9
-            ],
-            [
-                "value_3",
-                2,
-                2,
-                3.0,
-                3.0,
-                2
-            ]
-        ],
+        "data": [],
         "columns": {
             "column_0": {
                 "type": "",
@@ -37,7 +12,7 @@
             },
             "column_1": {
                 "type": 0,
-                "auto_inc": true,
+                "auto_inc": false,
                 "nullable": false,
                 "PK": true,
                 "FK": null,
@@ -54,7 +29,7 @@
             "column_3": {
                 "type": 0.0,
                 "auto_inc": false,
-                "nullable": false,
+                "nullable": true,
                 "PK": false,
                 "FK": null,
                 "column_name": "column_3"
@@ -78,12 +53,7 @@
         }
     },
     "table_1": {
-        "data": [
-            [
-                "value_11",
-                1
-            ]
-        ],
+        "data": [],
         "columns": {
             "column_00": {
                 "type": "",
