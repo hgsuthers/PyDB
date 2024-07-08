@@ -12,6 +12,8 @@ filepath = path.join(getcwd(), "db.json") # hardcode this for now
 
 # DB Initialization will take place in the DB Class
 
+# CUSTOM ERRORS -> TRANSLATE THOSE OVER TO TESTS
+
 with open(filepath, 'w') as f:
     json.dump({}, f, indent=4)
 
@@ -163,7 +165,6 @@ class Table:
 
         # Check that the data types match the schema
         # Handle nullable columns as well
-        # Check that the data types match the schema and handle nullable columns
         for index, (col, metadata) in enumerate(self.columns.items()):
             value = row_data[index]
             if value is None:
@@ -290,7 +291,9 @@ class Table:
         """
 
         index = [idx for idx, key in enumerate(list(self.columns.items())) if key[0] == column_name]
-        if len(index) > 1:
+        if len(index) == 0:
+            raise ValueError("Column does not exist in table.")
+        elif len(index) > 1: # Potentially unnecessary check
             raise ValueError("Identical column names.")
 
         if not self.columns[column_name]['PK']:
@@ -372,7 +375,7 @@ table_2 = Table(
         }
     }
 )
-# table_0.insert_row(['value_8', 3, 8.0, 8.0, 8.0])
+# table_0.insert_row(['value_8', 3, 8.0, 8.0])
 # table_0.insert_row(['value_0', 1, 0.0, 0.0])
 # table_0.insert_row(['value_4', 3, 4.0, 4.0])
 # table_0.update_row(['column_6', 'column_1'], ['value_updated', 1], 'column_1', 1)
@@ -387,7 +390,7 @@ table_2 = Table(
 #table_0.update_row(['column_4', 'column_4', 'column_4', 'column_4', 'column_4', 'column_4', 'column_4'], [5.0], 'column_3', 4.0)
 #table_0.update_row(['column_1', 'column_2'], [1, 2], 'column_4', 4.0)
 # table_0.update_row(['column_1'], [3], 'column_5', 3.0)
-# #table_0.delete_row('column_1', 2)
+# table_0.delete_row('column_1', 3)
 
 # table_0.update_row(['column_0', 'column_3'], ['value_0_updated', None], 'column_1', 2)
 # table_0.update_row(['column_1', 'column_3'], [1, None], 'column_1', 2)
@@ -396,7 +399,8 @@ table_2 = Table(
 # table_0.insert_row(['value_5', 4, 5.0, 5.0])
 # table_0.update_row(['column_0'], ['multiple_same_pk'], 'column_1', 4)
 # # not updating at all
-# print(table_0.load_data().get('data')[3][0])
+# print(table_0.load_data())
+# print(len(table_0.load_data().get('data')))
 # print('0000000')
 #
 # print('0000000')
