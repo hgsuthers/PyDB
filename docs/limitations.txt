@@ -1,0 +1,7 @@
+You will notice some glaring limitations that separate PyDB from any standard relational database.
+
+One of these limitations is Uniqueness of row values in a column. While it would be
+a simple endeavour to implement uniqueness, it will have to wait for a later update to the codebase.
+
+Another limitation will be that PyDB does not support partitioning. This could be a possibility in the future.
+If a PyDB database were to become too large, noticeable delay will begin to occur.

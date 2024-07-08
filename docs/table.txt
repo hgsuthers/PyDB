@@ -50,8 +50,7 @@ table = {
     }
 }
 
-NOTE: The above example table does not include constraints in the table's metadata. This
-is because I'm currently unsure of how to implement them.
+NOTE: The above example table does not include constraints in the table's metadata.
 
 Some basic behavior of a relational table would be your standard CRUD
 operations, that is Create Read Update Delete.
@@ -59,3 +58,137 @@ operations, that is Create Read Update Delete.
 The Create operation adds new information to a relational database. This information
 is in the form of a row or multiple rows. This operation is akin to the
 INSERT operator in SQL.
+
+Typically, in a relational database, the Read operation retrieves existing data from a table.
+In this case, the `load_data` method reads data from a source and loads it into the `data`
+attribute of the `Table` object.
+
+The update method of the Table class is responsible for modifying existing data in the table.
+It allows users to update specific rows or columns by providing the necessary parameters and new values.
+This is akin to the Update operation.
+
+The delete method of the Table class is responsible for modifying the table by deleting
+data as specified by the user. This pertains to the Delete operation.
+
+A more advanced relational table create call would look similar to the following:
+
+table_0 = Table(
+    filepath,
+    table_name='table_0',
+    columns={
+        'column_0': {
+            'type': str(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
+        },
+        'column_1': {
+            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': True, 'FK': None
+        },
+        'column_2': {
+            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': False, 'FK': None
+        },
+        'column_3': {
+            'type': float(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
+        },
+        'column_4': {
+            'type': float(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
+        },
+        'column_5': {
+            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': False, 'FK': None
+        },
+    }
+)
+
+The data contained within this table would be structured in the following way:
+
+{
+    "table_0": {
+        "data": [
+            [
+                "value_1",
+                0,
+                0,
+                1.0,
+                1.0,
+                0
+            ],
+            [
+                "value_2",
+                1,
+                1,
+                9.9,
+                3.9,
+                9
+            ],
+            [
+                "value_3",
+                2,
+                2,
+                3.0,
+                3.0,
+                2
+            ]
+        ],
+        "columns": {
+            "column_0": {
+                "type": "",
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_0"
+            },
+            "column_1": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": true,
+                "FK": null,
+                "column_name": "column_1"
+            },
+            "column_2": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_2"
+            },
+            "column_3": {
+                "type": 0.0,
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_3"
+            },
+            "column_4": {
+                "type": 0.0,
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_4"
+            },
+            "column_5": {
+                "type": 0,
+                "auto_inc": true,
+                "nullable": false,
+                "PK": false,
+                "FK": null,
+                "column_name": "column_5"
+            }
+        }
+    }
+}
+NOTE: This is an example derived from various inserts, deletes, and updates.
+
+When I think about what a table should be able to do, i arrive at the following conclusions:
+
+1. The only time a table should know about other tables is when foreign keys
+    are involved. This could be during their definition or after an update/delete.
+    You will notice behavior outside of the norm (and by this I mean one table
+    snooping around in other table) in the Table.build_table(...) method. In order
+    to properly define a foreign key, several checks have to pass:
+        a. The child table must know that the parent table has only one PK
+        b. The child table must know that the parent column exists
+        c. The child table must know that the fk type matches the parent column
+        d. The child table must know that the parent column is a PK

@@ -1,6 +1,15 @@
 {
     "table_0": {
-        "data": [],
+        "data": [
+            [
+                "value_0",
+                1,
+                0,
+                0.0,
+                0.0,
+                0
+            ]
+        ],
         "columns": {
             "column_0": {
                 "type": "",
