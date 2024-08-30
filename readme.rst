@@ -46,9 +46,9 @@ You can add tables to your database using the `add_table` method. Each table req
 .. code-block:: python
 
     columns = {
-        'id': {'type': int, 'PK': True},
-        'name': {'type': str},
-        'age': {'type': int}
+        'id': {'type': int(), 'PK': True},
+        'name': {'type': str()},
+        'age': {'type': int()}
     }
 
     db.add_table('users', columns)
