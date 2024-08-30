@@ -8,14 +8,14 @@ import json
 
 import sys
 
-filepath = path.join(getcwd(), "db.json") # hardcode this for now
+# filepath = path.join(getcwd(), "db.json") # hardcode this for now
 
 # DB Initialization will take place in the DB Class
 
 # CUSTOM ERRORS -> TRANSLATE THOSE OVER TO TESTS
 
-with open(filepath, 'w') as f:
-    json.dump({}, f, indent=4)
+# with open(filepath, 'w') as f:
+#     json.dump({}, f, indent=4)
 
 @dataclass
 class Table:
@@ -121,7 +121,69 @@ class Table:
             with open(self.path, 'w') as write_file:
                 json.dump(db_data, write_file, indent=4)
 
-    def insert_row(self, row_data: List[Any]):
+    def check_insert_row(self, row_data: List[Any]):
+        """
+        Check if the row can be inserted into the table.
+
+        This method checks if the row has the correct number of values,
+        if the data types match the schema, and if the primary key value
+        already exists in the table.
+
+        Args:
+            row_data (List[Any]): A list of values to be inserted into the table.
+
+        Raises:
+            ValueError: If the row has the incorrect number of values.
+            ValueError: If the data types do not match the schema.
+            ValueError: If the primary key value already exists in the table.
+
+        Notes:
+            - This method is called by the insert_row method.
+            - This method checks if the row can be inserted into the table.
+            - The method checks if the row has the correct number of values.
+            - The method checks if the data types match the schema.
+            - The method checks if the primary key value already exists in the table.
+        """
+        flag = False
+        if len(row_data) < len(self.columns):
+            for index, (col, metadata) in enumerate(self.columns.items()):
+                # Check if the column is auto-incrementing
+                if metadata.get('auto_inc', True):
+                    try:
+                        # Get the last value of the column and increment by 1
+                        row_data.insert(index, self.data[len(self.data)-1][index]+1)
+                    except (IndexError) as e:
+                        # Handles the first row of the table
+                        row_data.insert(index, 0)
+
+            # Check that the number of values matches the number of columns
+            #  after accounting for auto-incrementing columns
+            if len(row_data) != len(self.columns):
+                raise ValueError(
+                    'Attempting to insert {} values. Expected {}.'.format(
+                        len(row_data), len(self.columns)
+                    )
+                )
+
+        # Check that user isn't attempting to insert too many values
+        # There's more to it than this. The user cannot insert a value into an auto-incrementing column, which isn't factored in this calculation
+        elif len(row_data) > len(self.columns):
+            raise ValueError(
+                '{} values provided. Expected {}.'.format(
+                    len(row_data), len(self.columns)
+                )
+            )
+        
+        # Check that user isn't inserting a value for table PK
+        #  that already exists in the table, this is not allowed
+        for index, (col, metadata) in enumerate(self.columns.items()):
+            if metadata.get('PK', True):
+                if row_data[index] in [row[index] for row in self.data]:
+                    raise ValueError(f"Primary key value {row_data[index]} already exists in the table.")
+        
+
+
+    def prep_insert_row(self, row_data: List[Any]):
         """
         Insert a new row into the table.
 
@@ -174,7 +236,10 @@ class Table:
                 raise ValueError(f"Data type mismatch for column {col}.")
 
         # Append the row to the table and save the data
-        self.data.append(row_data)
+        return row_data
+
+    def insert_row(self, row_data: List[Any]):
+        self.data.append(self.prep_insert_row(row_data))
         self.save_data()
 
     def update_row(self, column_names: List[str], column_values: List[Any], conditional_column_name: str, conditional_column_value: Any):
@@ -207,8 +272,10 @@ class Table:
             raise ValueError("Column names and values must be of equal length.")
         
         # len column names - num auto inc columns
+        # this block should ignore auto inc columns that are being updated
         num_auto_inc = len([col for col in self.columns.values() if col.get('auto_inc', True)])
-        if len(column_names) > len(self.columns)-num_auto_inc:
+        num_auto_inc_updated = len([col for col in self.columns.values() if col.get('auto_inc', True) and col.get('column_name') in column_names])
+        if len(column_names) > len(self.columns)-num_auto_inc + num_auto_inc_updated:
             raise ValueError("Number of columns in update statement does not match table schema.")
         
         # Get the indices of the columns to be updated
@@ -249,7 +316,7 @@ class Table:
                     continue
                 else:
                     for idx, pk_index in enumerate(pk_indices):
-                        print(f"Row: {row}, PK: {pk_index}, Value: {column_values[idx]}")
+                        # print(f"Row: {row}, PK: {pk_index}, Value: {column_values[idx]}")
                         if row[pk_index[0]] == column_values[idx]:  # [0] works here because we only allow on PK column in the table
                             raise ValueError(f"Primary key value {column_values[idx]} already exists in the table.")
 
@@ -273,6 +340,11 @@ class Table:
         if mismatches:
             raise ValueError("Could not update table. Check for data type inconsistencies at {}.".format(mismatches))
         
+        # store the previous values of the rows to update
+        prev_values = []
+        for row in rows_to_update:
+            prev_values.append(row.copy())
+
         # Update the table after all checks have passed
         counter = 0
         for row in self.data:
@@ -283,9 +355,9 @@ class Table:
 
         # Save the updated table
         self.save_data()
-        return counter
+        return counter, prev_values
 
-    def delete_row(self, column_name: str, column_value: Any):
+    def delete_row(self, column_name: str, column_value: Any, is_fk_delete: bool = False):
         """
         Deletes rows in the table when given a column and value.
         """
@@ -296,8 +368,9 @@ class Table:
         elif len(index) > 1: # Potentially unnecessary check
             raise ValueError("Identical column names.")
 
-        if not self.columns[column_name]['PK']:
-            raise ValueError("Column not a primary key.")
+        if not is_fk_delete:
+            if not self.columns[column_name]['PK']:
+                raise ValueError("Column not a primary key.")
 
         if not isinstance(column_value, type(self.columns[column_name]['type'])):
             raise ValueError("There is a type mismatch.")
@@ -307,77 +380,10 @@ class Table:
                 self.data.remove(row)
                 self.save_data()
 
-table_0 = Table(
-    filepath,
-    table_name='table_0',
-    columns={
-        'column_0': {
-            'type': str(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
-        },
-        'column_1': {
-            'type': int(), 'auto_inc': False, 'nullable': False, 'PK': True, 'FK': None
-        },
-        'column_2': {
-            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': False, 'FK': None
-        },
-        'column_3': {
-            'type': float(), 'auto_inc': False, 'nullable': True, 'PK': False, 'FK': None
-        },
-        'column_4': {
-            'type': float(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
-        },
-        'column_5': {
-            'type': int(), 'auto_inc': True, 'nullable': False, 'PK': False, 'FK': None
-        }
-    }
-)
 
-table_1 = Table(
-    filepath,
-    table_name='table_1',
-    columns={
-        'column_00': {
-            'type': str(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
-        },
-        'column_11': {
-            'type': int(),
-            'auto_inc': True,
-            'nullable': False,
-            'PK': True,
-            'FK': {
-                'table': 'table_0',
-                'column': 'column_1',
-                'on_update': 'cascade',
-                'on_delete': 'do_nothing'
-            }
-        }
-    }
-)
-
-table_2 = Table(
-    filepath,
-    table_name='table_1',
-    columns={
-        'column_000': {
-            'type': str(), 'auto_inc': False, 'nullable': False, 'PK': False, 'FK': None
-        },
-        'column_111': {
-            'type': int(),
-            'auto_inc': True,
-            'nullable': False,
-            'PK': True,
-            'FK': {
-                'table': 'table_0',
-                'column': 'column_1',
-                'on_update': 'cascade',
-                'on_delete': 'do_nothing'
-            }
-        }
-    }
-)
 # table_0.insert_row(['value_8', 3, 8.0, 8.0])
 # table_0.insert_row(['value_0', 1, 0.0, 0.0])
-# table_0.insert_row(['value_4', 3, 4.0, 4.0])
+# table_0.insert_row(['value_4', 2, 4.0, 4.0])
 # table_0.update_row(['column_6', 'column_1'], ['value_updated', 1], 'column_1', 1)
 # print(table_0.load_data())
 # table_0.insert_row(['value_1', 1, None, 1.0])
