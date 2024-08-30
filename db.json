@@ -1,80 +1,229 @@
 {
-    "table_0": {
-        "data": [],
+    "seed_companies": {
+        "data": [
+            [
+                "Bayer",
+                11
+            ],
+            [
+                "Syngenta",
+                3
+            ],
+            [
+                "Dow AgroSciences",
+                4
+            ],
+            [
+                "DuPont Pioneer",
+                5
+            ],
+            [
+                "Limagrain",
+                6
+            ],
+            [
+                "KWS Saat",
+                7
+            ],
+            [
+                "Sakata",
+                8
+            ],
+            [
+                "Rijk Zwaan",
+                9
+            ],
+            [
+                "Takii",
+                10
+            ]
+        ],
         "columns": {
-            "column_0": {
+            "seed_company_name": {
                 "type": "",
                 "auto_inc": false,
                 "nullable": false,
                 "PK": false,
                 "FK": null,
-                "column_name": "column_0"
+                "column_name": "seed_company_name"
             },
-            "column_1": {
+            "seed_company_id": {
                 "type": 0,
-                "auto_inc": false,
+                "auto_inc": true,
                 "nullable": false,
                 "PK": true,
                 "FK": null,
-                "column_name": "column_1"
-            },
-            "column_2": {
-                "type": 0,
-                "auto_inc": true,
-                "nullable": false,
-                "PK": false,
-                "FK": null,
-                "column_name": "column_2"
-            },
-            "column_3": {
-                "type": 0.0,
-                "auto_inc": false,
-                "nullable": true,
-                "PK": false,
-                "FK": null,
-                "column_name": "column_3"
-            },
-            "column_4": {
-                "type": 0.0,
-                "auto_inc": false,
-                "nullable": false,
-                "PK": false,
-                "FK": null,
-                "column_name": "column_4"
-            },
-            "column_5": {
-                "type": 0,
-                "auto_inc": true,
-                "nullable": false,
-                "PK": false,
-                "FK": null,
-                "column_name": "column_5"
+                "column_name": "seed_company_id"
             }
         }
     },
-    "table_1": {
-        "data": [],
+    "contacts": {
+        "data": [
+            [
+                "Alice Johnson",
+                3,
+                11
+            ],
+            [
+                "Bob Brown",
+                4,
+                11
+            ],
+            [
+                "Charlie Davis",
+                5,
+                3
+            ],
+            [
+                "Diana Evans",
+                6,
+                3
+            ],
+            [
+                "Eve Foster",
+                7,
+                4
+            ],
+            [
+                "Frank Green",
+                8,
+                4
+            ],
+            [
+                "Grace Harris",
+                9,
+                5
+            ],
+            [
+                "Hank Irving",
+                10,
+                5
+            ],
+            [
+                "Ivy Johnson",
+                11,
+                6
+            ],
+            [
+                "Jack King",
+                12,
+                6
+            ],
+            [
+                "Kara Lee",
+                13,
+                7
+            ],
+            [
+                "Leo Martin",
+                14,
+                7
+            ],
+            [
+                "Mona Nelson",
+                15,
+                8
+            ],
+            [
+                "Nina Owens",
+                16,
+                8
+            ],
+            [
+                "Oscar Perry",
+                17,
+                9
+            ],
+            [
+                "Pam Quinn",
+                18,
+                9
+            ],
+            [
+                "Quincy Roberts",
+                19,
+                10
+            ],
+            [
+                "Rachel Scott",
+                20,
+                10
+            ],
+            [
+                "Tina Underwood",
+                22,
+                11
+            ],
+            [
+                "Uma Vance",
+                23,
+                3
+            ],
+            [
+                "Victor White",
+                24,
+                4
+            ],
+            [
+                "Wendy Xander",
+                25,
+                5
+            ],
+            [
+                "Xander Young",
+                26,
+                6
+            ],
+            [
+                "Yara Zane",
+                27,
+                7
+            ],
+            [
+                "Zack Allen",
+                28,
+                8
+            ],
+            [
+                "Amy Baker",
+                29,
+                9
+            ],
+            [
+                "Brian Clark",
+                30,
+                10
+            ]
+        ],
         "columns": {
-            "column_00": {
+            "contact_name": {
                 "type": "",
                 "auto_inc": false,
                 "nullable": false,
                 "PK": false,
                 "FK": null,
-                "column_name": "column_00"
+                "column_name": "contact_name"
             },
-            "column_11": {
+            "contact_id": {
                 "type": 0,
                 "auto_inc": true,
                 "nullable": false,
                 "PK": true,
+                "FK": null,
+                "column_name": "contact_id"
+            },
+            "seed_company_id": {
+                "type": 0,
+                "auto_inc": false,
+                "nullable": false,
+                "PK": false,
                 "FK": {
-                    "table": "table_0",
-                    "column": "column_1",
+                    "table": "seed_companies",
+                    "column": "seed_company_id",
                     "on_update": "cascade",
-                    "on_delete": "do_nothing"
+                    "on_delete": "cascade"
                 },
-                "column_name": "column_11"
+                "column_name": "seed_company_id"
             }
         }
     }
