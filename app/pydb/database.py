@@ -33,6 +33,10 @@ class Database:
 
     def list_tables(self) -> List[str]:
         return list(self.tables.keys())
+    
+    def select(self, table_name: str):
+        table = self.get_table(table_name)
+        return table.load_data()
 
     def insert_into_table(self, table_name: str, row: List[Any]):
         table = self.get_table(table_name)
@@ -42,11 +46,12 @@ class Database:
         # check for a parent table
         for column, values in table.columns.items():
             if values['FK']:
+                fk_column = values['FK']['column']
                 print(f"FK found in {table_name} for {column}")
                 parent_table = values['FK']['table']
                 print(f"Parent table is {parent_table}")
                 # get the index of column in both tables
-                parent_table_index = list(self.get_table(parent_table).columns.keys()).index(column)
+                parent_table_index = list(self.get_table(parent_table).columns.keys()).index(fk_column)
                 table_index = list(table.columns.keys()).index(column)
                 print(f"Parent table index is {parent_table_index}")
                 print(f"Table index is {table_index}")
@@ -66,40 +71,70 @@ class Database:
         print('-----')
 
     def update_table(self, table_name, column_names: List[str], column_values: List[Any], conditional_column_name: str, conditional_column_value: Any):
+
         table = self.get_table(table_name)
         prev_cols = list(table.columns.keys())
         counter, prev_vals = table.update_row(column_names, column_values, conditional_column_name, conditional_column_value)
         print(f"Made {counter} updates to {table_name} where {conditional_column_name} = {conditional_column_value} from {prev_vals} to {column_values}")
         self.handle_fk_updates(table_name, column_names, column_values, prev_cols, prev_vals)
+        print('-----')
 
     def handle_fk_updates(self, table_name, column_names, column_values, prev_cols, prev_vals):
+        print('-----')
         print(f"Checking for FK updates in {table_name}")
-        print(f"Column names to be altered: {column_names}")
-        print(f"Column values to be altered: {column_values}")
-        print(f"---")
+        print(f"Column names altered in parent table: {column_names}")
+        print(f"New values in parent table: {column_values}")
+
         prev_table = self.get_table(table_name)
         for potential_child_table in self.tables:
             if potential_child_table == table_name:
                 continue
             pct = self.get_table(potential_child_table)
-            for column, values in pct.columns.items():
-                print(f"Checking {column} in {potential_child_table}")
-                if column in column_names:
-                    print(f"Column {column} is in column_names")
-                    if values['FK'] and values['FK']['table'] == table_name:
-                        print(f"FK found in {potential_child_table} linking to {table_name}")
-                        fk_column = values['FK']['column']
-                        print(f"The FK column is {fk_column}")
-                        if not values['FK']['column'] == column:
+            # for column, values in pct.columns.items():
+            #     print(f"Checking {column} in {potential_child_table}")
+            #     if column in column_names:
+            #         print(f"Column {column} is in column_names")
+            #         if values['FK'] and values['FK']['table'] == table_name:
+            #             print(f"FK found in {potential_child_table} linking to {table_name}")
+            #             fk_column = values['FK']['column']
+            #             print(f"The FK column is {fk_column}")
+            #             if not values['FK']['column'] == column:
+            #                 continue
+            #             fk_column_index = list(pct.columns.keys()).index(column)
+            #             prev_column_index = list(prev_table.columns.keys()).index(column)
+            #             if values['FK']['on_update'] == 'cascade':
+            #                 for i, row in enumerate(pct.load_data()['data']):
+            #                     for column, value, prev_val in zip(column_names, column_values, prev_vals):
+            #                         if row[fk_column_index] == prev_val[prev_column_index]:
+            #                             print(f"Updating {column} in {potential_child_table} where {fk_column} = {prev_val[prev_column_index]}")
+            #                             pct.update_row([column], [value], fk_column, row[fk_column_index])
+
+            for child_column, child_values in pct.columns.items():
+                if child_values['FK'] and child_values['FK']['table'] == table_name:
+                    print(f"FK found in {potential_child_table} linking to {table_name}")
+                    parent_column = child_values['FK']['column']
+                    print(f"The parent column is {table_name}.{parent_column}")
+                    print(f"The child column is {potential_child_table}.{child_column}")
+
+                    for column, value, prev_val in zip(column_names, column_values, prev_vals):
+                        print(child_values['FK']['column'])
+                        print(column)
+                        if not child_values['FK']['column'] == column:
                             continue
-                        fk_column_index = list(pct.columns.keys()).index(column)
-                        prev_column_index = list(prev_table.columns.keys()).index(column)
-                        if values['FK']['on_update'] == 'cascade':
+
+                        fk_column_index = list(pct.columns.keys()).index(child_column)
+                        prev_column_index = list(prev_table.columns.keys()).index(parent_column)
+                        print(f"Updating {potential_child_table}.{child_column} where {table_name}.{parent_column} = {prev_val[prev_column_index]}")
+
+                        if child_values['FK']['on_update'] == 'cascade':
                             for i, row in enumerate(pct.load_data()['data']):
-                                for column, value, prev_val in zip(column_names, column_values, prev_vals):
-                                    if row[fk_column_index] == prev_val[prev_column_index]:
-                                        print(f"Updating {column} in {potential_child_table} where {fk_column} = {prev_val[prev_column_index]}")
-                                        pct.update_row([column], [value], fk_column, row[fk_column_index])
+                                if row[fk_column_index] == prev_val[prev_column_index]:
+                                        pct.update_row([child_column], [value], child_column, row[fk_column_index])
+                        elif child_values['FK']['on_update'] == 'set_null':
+                            for i, row in enumerate(pct.load_data()['data']):
+                                if row[fk_column_index] == prev_val[prev_column_index]:
+                                    pct.update_row([child_column], [None], child_column, row[fk_column_index])
+
 
     def delete_from_table(self, table_name: str, column_name: str, column_value: Any):
         table = self.get_table(table_name)
@@ -116,17 +151,22 @@ class Database:
             if potential_child_table == table_name:
                 continue
             pct = self.get_table(potential_child_table)
-            for column, values in pct.columns.items():
-                print(f"Checking {column} in {potential_child_table}")
-                if values['FK'] and values['FK']['table'] == table_name:
+            for child_column, child_values in pct.columns.items():
+                if child_values['FK'] and child_values['FK']['table'] == table_name:
                     print(f"FK found in {potential_child_table} linking to {table_name}")
-                    fk_column = values['FK']['column']
-                    print(f"The FK column is {fk_column}")
-                    if not fk_column == column_name:
+                    parent_column = child_values['FK']['column']
+                    print(f"The parent column is {table_name}.{parent_column}")
+                    print(f"The child column is {potential_child_table}.{child_column}")
+                    if not parent_column == column_name:
                         continue
-                    fk_column_index = list(pct.columns.keys()).index(column)
-                    if values['FK']['on_delete'] == 'cascade':
+                    fk_column_index = list(pct.columns.keys()).index(child_column)
+                    if child_values['FK']['on_delete'] == 'cascade':
                         for i, row in enumerate(pct.load_data()['data']):
                             if row[fk_column_index] == column_value:
-                                print(f"Deleting row in {potential_child_table} where {fk_column} = {column_value}")
-                                pct.delete_row(fk_column, column_value, True)
+                                print(f"Deleting row in {potential_child_table} where {child_column} = {column_value}")
+                                pct.delete_row(child_column, column_value, True)
+                    elif child_values['FK']['on_delete'] == 'set_null':
+                        for i, row in enumerate(pct.load_data()['data']):
+                            if row[fk_column_index] == column_value:
+                                print(f"Setting row in {potential_child_table} where {child_column} = {column_value} to NULL")
+                                pct.update_row([child_column], [None], child_column, column_value)

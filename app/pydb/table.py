@@ -26,10 +26,25 @@ class Table:
     data: List[List[Any]] = field(init=False, default_factory=list)
 
     def __post_init__(self):
+        self.columns = self.default_columns(self.columns)
         self.build_table()
 
     def __repr__(self):
         return self.table_name
+    
+    def __str__(self):
+        return self.table_name
+    
+    def default_columns(self, columns):
+        def create_col_struct(type, PK=False, FK=None, auto_inc=False, nullable=False):
+            return{
+                    'type': type,
+                    'PK': PK,
+                    'FK': FK,
+                    'auto_inc': auto_inc,
+                    'nullable': nullable
+                }
+        return {col_name: create_col_struct(**col_info) for col_name, col_info in columns.items()} 
 
     def build_table(self):
         '''
@@ -76,11 +91,16 @@ class Table:
                             raise ValueError(f"Parent is not a primary key.")
                         
                         # Check that the on_update and on_delete are valid
-                        if fk_info.get('on_update') not in ['cascade', 'set_null', 'do_nothing']:
-                            raise ValueError(f"Invalid on_update action for FK relation.")
+                        if not fk_info.get('on_update') or not fk_info.get('on_update') in ['cascade', 'set_null', 'do_nothing']:
+                            fk_info['on_update'] = 'do_nothing'
+
+                        if not fk_info.get('on_delete') or not fk_info.get('on_delete') in ['cascade', 'set_null', 'do_nothing']:
+                            fk_info['on_delete'] = 'do_nothing'
+                        # if fk_info.get('on_update') not in ['cascade', 'set_null', 'do_nothing']:
+                            # raise ValueError(f"Invalid on_update action for FK relation.")
                         
-                        if fk_info.get('on_delete') not in ['cascade', 'set_null', 'do_nothing']:
-                            raise ValueError(f"Invalid on_delete action for FK relation.")
+                        # if fk_info.get('on_delete') not in ['cascade', 'set_null', 'do_nothing']:
+                        #     raise ValueError(f"Invalid on_delete action for FK relation.")
 
             # Check if the table exists in the db
             if self.table_name not in db_data:
@@ -144,7 +164,6 @@ class Table:
             - The method checks if the data types match the schema.
             - The method checks if the primary key value already exists in the table.
         """
-        flag = False
         if len(row_data) < len(self.columns):
             for index, (col, metadata) in enumerate(self.columns.items()):
                 # Check if the column is auto-incrementing
@@ -239,8 +258,12 @@ class Table:
         return row_data
 
     def insert_row(self, row_data: List[Any]):
-        self.data.append(self.prep_insert_row(row_data))
-        self.save_data()
+        try:
+            self.data.append(self.prep_insert_row(row_data))
+            self.save_data()
+        except Exception as e:
+            print(e)
+            print("Could not insert row.")
 
     def update_row(self, column_names: List[str], column_values: List[Any], conditional_column_name: str, conditional_column_value: Any):
         """
