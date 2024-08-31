@@ -1,0 +1,63 @@
+{
+    "users": {
+        "data": [
+            [
+                9,
+                "Alice",
+                30
+            ]
+        ],
+        "columns": {
+            "id": {
+                "type": 0,
+                "PK": true,
+                "FK": null,
+                "auto_inc": true,
+                "nullable": false,
+                "column_name": "id"
+            },
+            "name": {
+                "type": "",
+                "PK": false,
+                "FK": null,
+                "auto_inc": false,
+                "nullable": false,
+                "column_name": "name"
+            },
+            "age": {
+                "type": 0,
+                "PK": false,
+                "FK": null,
+                "auto_inc": false,
+                "nullable": false,
+                "column_name": "age"
+            }
+        }
+    },
+    "orders": {
+        "data": [],
+        "columns": {
+            "id": {
+                "type": 0,
+                "PK": true,
+                "FK": null,
+                "auto_inc": true,
+                "nullable": false,
+                "column_name": "id"
+            },
+            "user_id": {
+                "type": 0,
+                "PK": false,
+                "FK": {
+                    "table": "users",
+                    "column": "id",
+                    "on_update": "set_null",
+                    "on_delete": "cascade"
+                },
+                "auto_inc": false,
+                "nullable": true,
+                "column_name": "user_id"
+            }
+        }
+    }
+}

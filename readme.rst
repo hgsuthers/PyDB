@@ -46,9 +46,9 @@ You can add tables to your database using the `add_table` method. Each table req
 .. code-block:: python
 
     columns = {
-        'id': {'type': int, 'PK': True},
-        'name': {'type': str},
-        'age': {'type': int}
+        'id': {'type': int(), 'PK': True},
+        'name': {'type': str()},
+        'age': {'type': int()}
     }
 
     db.add_table('users', columns)
@@ -73,10 +73,10 @@ PyDB supports foreign key constraints to maintain referential integrity between 
 .. code-block:: python
 
     columns = {
-        'id': {'type': int, 'PK': True},
-        'user_id': {'type': int, 'FK': {'table': 'users', 'column': 'id'}}
+        'id': {'type': int(), 'auto_inc': True, 'PK': True},
+        'user_id': {'type': int(), 'nullable': True, 'FK': {'table': 'users', 'column': 'id', 'on_update': 'set_null', 'on_delete': 'cascade'}}
     }
-
+    
     db.add_table('orders', columns)
 
 This creates an `orders` table with a foreign key constraint on the `user_id` column, referencing the `id` column in the `users` table.
@@ -88,8 +88,7 @@ To update data in a table, you can use the `update_row` method. You need to spec
 
 .. code-block:: python
 
-    table = db.get_table('users')
-    table.update_row(['name'], ['Alice Smith'], 'id', 1)
+    db.update_table('users', ['name'], ['Alice Smith'], 'id', 1)
 
 This updates the `name` column for the row where `id` is 1.
 
@@ -100,8 +99,7 @@ To delete data from a table, use the `delete_row` method. You need to specify th
 
 .. code-block:: python
 
-    table = db.get_table('users')
-    table.delete_row('id', 2)
+    db.delete_from_table('users', 'id', 2)
 
 This deletes the row where `id` is 2.
 
@@ -124,50 +122,44 @@ Here is a complete example demonstrating the usage of PyDB:
 
 .. code-block:: python
 
-    from pydb.database import Database
-
-    # Create a new database
-    db = Database(path='db.json')
-
-    # Define columns for the users table
-    user_columns = {
-        'id': {'type': int, 'PK': True},
-        'name': {'type': str},
-        'age': {'type': int}
+    from app.pydb.database import Database
+    import sys
+    import os
+    
+    filepath = 'db2.json'
+    if os.path.exists(filepath):
+        os.remove(filepath)
+    
+    db = Database(filepath)
+    
+    columns = {
+        'id': {'type': int(), 'PK': True, 'auto_inc': True},
+        'name': {'type': str()},
+        'age': {'type': int()}
     }
-
-    # Add the users table
-    db.add_table('users', user_columns)
-
-    # Insert data into the users table
-    db.insert_into_table('users', [1, 'Alice', 30])
+    db.add_table('users', columns)
+    
+    db.insert_into_table('users', [9, 'Alice', 30])
     db.insert_into_table('users', [2, 'Bob', 25])
-
-    # Define columns for the orders table with a foreign key constraint
-    order_columns = {
-        'id': {'type': int, 'PK': True},
-        'user_id': {'type': int, 'FK': {'table': 'users', 'column': 'id'}}
+    
+    columns = {
+        'id': {'type': int(), 'auto_inc': True, 'PK': True},
+        'user_id': {'type': int(), 'nullable': True, 'FK': {'table': 'users', 'column': 'id', 'on_update': 'set_null', 'on_delete': 'cascade'}}
     }
+    
+    db.add_table('orders', columns)
+    
+    db.insert_into_table('orders', [1])
+    db.insert_into_table('orders', [2])
+    db.insert_into_table('orders', [2])
+    
+    db.update_table('users', ['id'], [5], 'id', 1)
+    
+    db.delete_from_table('users', 'id', 2)
+    
+    print(db.select('users'))
 
-    # Add the orders table
-    db.add_table('orders', order_columns)
-
-    # Insert data into the orders table
-    db.insert_into_table('orders', [1, 1])
-    db.insert_into_table('orders', [2, 2])
-
-    # Update data in the users table
-    table = db.get_table('users')
-    table.update_row(['name'], ['Alice Smith'], 'id', 1)
-
-    # Delete data from the users table
-    table.delete_row('id', 2)
-
-    # List all tables in the database
-    tables = db.list_tables()
-    print(tables)
-
-This example demonstrates how to create a database, add tables, insert data, update data, delete data, and list tables using PyDB.
+This example demonstrates how to create a database, add tables, insert data, update data, delete data, and select data using PyDB.
 
 Conclusion
 ----------
