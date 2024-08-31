@@ -73,8 +73,8 @@ PyDB supports foreign key constraints to maintain referential integrity between 
 .. code-block:: python
 
     columns = {
-        'id': {'type': int, 'PK': True},
-        'user_id': {'type': int, 'FK': {'table': 'users', 'column': 'id', 'on_update': 'do_nothing', 'on_delete': 'do_nothing'}}
+        'id': {'type': int(), 'PK': True},
+        'user_id': {'type': int(), 'FK': {'table': 'users', 'column': 'id', 'on_update': 'do_nothing', 'on_delete': 'do_nothing'}}
     }
 
     db.add_table('orders', columns)
