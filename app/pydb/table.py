@@ -263,7 +263,6 @@ class Table:
             self.save_data()
         except Exception as e:
             print(e)
-            print("Could not insert row.")
 
     def update_row(self, column_names: List[str], column_values: List[Any], conditional_column_name: str, conditional_column_value: Any):
         """
@@ -339,7 +338,6 @@ class Table:
                     continue
                 else:
                     for idx, pk_index in enumerate(pk_indices):
-                        # print(f"Row: {row}, PK: {pk_index}, Value: {column_values[idx]}")
                         if row[pk_index[0]] == column_values[idx]:  # [0] works here because we only allow on PK column in the table
                             raise ValueError(f"Primary key value {column_values[idx]} already exists in the table.")
 
@@ -398,39 +396,10 @@ class Table:
         if not isinstance(column_value, type(self.columns[column_name]['type'])):
             raise ValueError("There is a type mismatch.")
 
+        counter = 0
         for row in self.data:
             if row[index[0]] == column_value:
                 self.data.remove(row)
                 self.save_data()
-
-
-# table_0.insert_row(['value_8', 3, 8.0, 8.0])
-# table_0.insert_row(['value_0', 1, 0.0, 0.0])
-# table_0.insert_row(['value_4', 2, 4.0, 4.0])
-# table_0.update_row(['column_6', 'column_1'], ['value_updated', 1], 'column_1', 1)
-# print(table_0.load_data())
-# table_0.insert_row(['value_1', 1, None, 1.0])
-# table_0.insert_row(['value_2', 1, 4.0, 2.0])
-# table_0.insert_row(['value_3', 3, 4.0, 3.0])
-#table_0.insert_row(['value_4', 4, 4.0, 4.0])
-# table_1.insert_row(['value_11', 1])
-# print(table_0.load_data())
-#table_0.update_row(['column_4'], [5.0], 'column_3', 4.0)
-#table_0.update_row(['column_4', 'column_4', 'column_4', 'column_4', 'column_4', 'column_4', 'column_4'], [5.0], 'column_3', 4.0)
-#table_0.update_row(['column_1', 'column_2'], [1, 2], 'column_4', 4.0)
-# table_0.update_row(['column_1'], [3], 'column_5', 3.0)
-# table_0.delete_row('column_1', 3)
-
-# table_0.update_row(['column_0', 'column_3'], ['value_0_updated', None], 'column_1', 2)
-# table_0.update_row(['column_1', 'column_3'], [1, None], 'column_1', 2)
-#table_0.update_row(['column_0', 'column_2'], ['value_0_updated', None], 'column_1', 2)
-# table_0.update_row(['column_3', 'column_4', 'column_5'], [9.9, 3.9, 9],  'column_1', 1)
-# table_0.insert_row(['value_5', 4, 5.0, 5.0])
-# table_0.update_row(['column_0'], ['multiple_same_pk'], 'column_1', 4)
-# # not updating at all
-# print(table_0.load_data())
-# print(len(table_0.load_data().get('data')))
-# print('0000000')
-#
-# print('0000000')
-# print(table_1.load_data())
+                counter += 1
+        return counter
