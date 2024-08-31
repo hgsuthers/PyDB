@@ -74,7 +74,7 @@ PyDB supports foreign key constraints to maintain referential integrity between 
 
     columns = {
         'id': {'type': int, 'PK': True},
-        'user_id': {'type': int, 'FK': {'table': 'users', 'column': 'id'}}
+        'user_id': {'type': int, 'FK': {'table': 'users', 'column': 'id', 'on_update': 'do_nothing', 'on_delete': 'do_nothing'}}
     }
 
     db.add_table('orders', columns)
@@ -88,8 +88,7 @@ To update data in a table, you can use the `update_row` method. You need to spec
 
 .. code-block:: python
 
-    table = db.get_table('users')
-    table.update_row(['name'], ['Alice Smith'], 'id', 1)
+    table.update_table(['name'], ['Alice Smith'], 'id', 1)
 
 This updates the `name` column for the row where `id` is 1.
 
