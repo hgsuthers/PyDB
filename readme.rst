@@ -88,7 +88,7 @@ To update data in a table, you can use the `update_row` method. You need to spec
 
 .. code-block:: python
 
-    table.update_table(['name'], ['Alice Smith'], 'id', 1)
+    db.update_table('users', ['name'], ['Alice Smith'], 'id', 1)
 
 This updates the `name` column for the row where `id` is 1.
 
