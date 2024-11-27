@@ -17,3 +17,208 @@
 2024-08-30 23:43:49,016 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
 2024-08-30 23:43:49,017 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
 2024-08-30 23:43:49,019 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:36:22,443 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:36:22,444 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:36:22,446 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:36:59,331 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:36:59,332 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:36:59,334 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:57:16,483 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:57:16,484 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:57:16,485 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:57:30,703 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:57:30,704 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:57:30,706 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:57:46,582 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:57:46,583 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:57:46,585 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:57:58,260 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:57:58,261 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:57:58,262 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:58:16,364 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:58:16,365 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:58:16,368 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-12 21:58:37,868 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-12 21:58:37,869 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-12 21:58:37,871 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:51:23,280 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:51:23,285 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:51:23,287 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:51:33,781 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:51:33,783 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:51:33,785 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:52:21,842 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:52:21,843 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:52:21,845 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:52:31,766 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:52:31,767 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:52:31,769 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:52:40,486 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:52:40,487 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:52:40,489 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:52:48,690 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:52:48,691 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:52:48,693 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:52:58,063 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:52:58,064 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:52:58,066 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:53:41,246 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:53:41,247 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:53:41,249 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:53:54,482 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:53:54,484 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:53:54,486 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:54:40,050 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:54:40,051 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:54:40,053 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:55:09,448 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:55:09,449 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:55:09,451 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:55:24,038 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:55:24,040 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:55:24,041 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:55:41,126 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:55:41,127 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:55:41,129 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:55:53,398 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:55:53,399 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:55:53,400 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 00:56:13,846 - INFO - Row [2, 3, 1, 'Invalid post'] not inserted into comments.
+2024-09-15 00:56:13,847 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 00:56:13,849 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 02:07:21,809 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:07:21,810 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 02:07:32,762 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:07:32,764 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 02:07:57,358 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:07:57,360 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 02:08:07,908 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:08:07,909 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 02:08:29,045 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:08:29,047 - INFO - 1 rows deleted from users where user_id = 1
+2024-09-15 02:08:37,692 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:09:12,444 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:13:19,125 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:26:44,673 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:27:20,101 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:29:42,865 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:33:27,836 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:34:09,582 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:36:31,131 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:39:04,803 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:39:40,907 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:42:05,377 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:42:15,964 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 02:42:57,583 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:10:54,751 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:11:23,886 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:21:59,884 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:24:38,641 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:24:57,073 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:25:05,890 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:25:28,031 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:35:57,462 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-09-15 13:36:14,882 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-10-06 04:43:08,870 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 17:21:30,942 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 17:29:11,601 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 17:30:03,471 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 17:50:27,393 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 17:51:03,944 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 17:51:54,465 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:11:01,118 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:21:50,099 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:25:26,306 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:26:32,888 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:26:58,071 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:30:45,388 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:34:01,371 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:35:44,898 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:36:11,917 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:37:12,643 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:37:39,618 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:38:34,544 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:40:57,972 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:43:10,344 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:44:23,955 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:45:33,414 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:46:34,779 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:46:59,759 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:48:49,139 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:51:35,435 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:52:32,330 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:52:44,907 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:52:48,037 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:56:20,813 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:57:26,792 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:57:54,085 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:58:09,666 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:58:30,818 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:59:24,906 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 22:59:55,257 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:00:50,863 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:02:53,667 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:03:04,976 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:04:18,503 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:05:51,947 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:06:19,031 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:07:52,736 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:11:18,211 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:12:13,616 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:12:33,196 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:14:59,542 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:15:15,912 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:15:47,603 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:16:00,998 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:16:30,515 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:17:09,584 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:17:33,142 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:18:09,032 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:19:37,209 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:20:46,804 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:20:51,818 - INFO - Database closed.
+2024-11-26 23:21:10,660 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:21:15,674 - INFO - Database closed.
+2024-11-26 23:23:27,995 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:24:51,146 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:25:05,830 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:26:02,121 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:47:44,015 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:48:15,656 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:50:01,689 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:50:11,257 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:50:30,153 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:53:52,919 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:54:06,439 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:55:40,674 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:55:59,234 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:56:33,585 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:58:22,809 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:58:57,162 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-26 23:59:17,837 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:00:31,915 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:00:56,671 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:01:44,814 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:02:12,610 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:02:29,882 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:02:48,723 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:05:40,591 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:05:40,621 - INFO - Tables saved to test_db.json.
+2024-11-27 00:09:25,321 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:09:25,335 - INFO - Removing temporary table temp_users_posts
+2024-11-27 00:09:25,337 - INFO - Removing temporary table temp_users_posts_comments
+2024-11-27 00:09:25,339 - INFO - Database closed.
+2024-11-27 00:11:08,191 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:11:08,204 - INFO - Removing temporary table temp_users_posts
+2024-11-27 00:11:08,206 - INFO - Removing temporary table temp_users_posts_comments
+2024-11-27 00:11:08,213 - INFO - Tables saved to test_db.json.
+2024-11-27 00:11:08,214 - INFO - Database closed.
+2024-11-27 00:13:32,450 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:13:32,463 - INFO - Tables saved to test_db.json.
+2024-11-27 00:13:32,464 - INFO - Database reset.
+2024-11-27 00:13:42,958 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:13:42,971 - INFO - Tables saved to test_db.json.
+2024-11-27 00:13:42,971 - INFO - Database reset.
+2024-11-27 00:14:52,886 - INFO - Row [3, 1, 3, 'Invalid user'] not inserted into comments.
+2024-11-27 00:14:52,939 - INFO - Tables saved to test_db.json.
+2024-11-27 00:14:52,939 - INFO - Database reset.

@@ -8,17 +8,20 @@ import json
 
 import sys
 
-# filepath = path.join(getcwd(), "db.json") # hardcode this for now
-
-# DB Initialization will take place in the DB Class
-
-# CUSTOM ERRORS -> TRANSLATE THOSE OVER TO TESTS
-
-# with open(filepath, 'w') as f:
-#     json.dump({}, f, indent=4)
-
 @dataclass
 class Table:
+    '''
+    A Python dataclass that represents a table in a database.
+
+    This class is used to create and manage tables in a PyDB database.
+
+    Attributes:
+        path (str): The path to the database file.
+        table_name (str): The name of the table.
+        columns (Dict[str, Dict[str, Any]]): A dictionary of column names and their metadata.
+        data (List[List[Any]]): A list of rows in the table.
+
+    '''
 
     path: str
     table_name: str = ''
@@ -26,6 +29,7 @@ class Table:
     data: List[List[Any]] = field(init=False, default_factory=list)
 
     def __post_init__(self):
+        # Set the default columns which can be overridden by the user
         self.columns = self.default_columns(self.columns)
         self.build_table()
 
@@ -36,13 +40,14 @@ class Table:
         return self.table_name
     
     def default_columns(self, columns):
-        def create_col_struct(type, PK=False, FK=None, auto_inc=False, nullable=False):
+        def create_col_struct(type, PK=False, FK=None, auto_inc=False, nullable=False, column_name=None, temporary=False):
             return{
                     'type': type,
                     'PK': PK,
                     'FK': FK,
                     'auto_inc': auto_inc,
-                    'nullable': nullable
+                    'nullable': nullable,
+                    'temporary': False
                 }
         return {col_name: create_col_struct(**col_info) for col_name, col_info in columns.items()} 
 
@@ -96,11 +101,6 @@ class Table:
 
                         if not fk_info.get('on_delete') or not fk_info.get('on_delete') in ['cascade', 'set_null', 'do_nothing']:
                             fk_info['on_delete'] = 'do_nothing'
-                        # if fk_info.get('on_update') not in ['cascade', 'set_null', 'do_nothing']:
-                            # raise ValueError(f"Invalid on_update action for FK relation.")
-                        
-                        # if fk_info.get('on_delete') not in ['cascade', 'set_null', 'do_nothing']:
-                        #     raise ValueError(f"Invalid on_delete action for FK relation.")
 
             # Check if the table exists in the db
             if self.table_name not in db_data:
@@ -141,66 +141,24 @@ class Table:
             with open(self.path, 'w') as write_file:
                 json.dump(db_data, write_file, indent=4)
 
-    def check_insert_row(self, row_data: List[Any]):
-        """
-        Check if the row can be inserted into the table.
+    def delete_table(self):
+        '''
+        Deletes the table from the database file.
 
-        This method checks if the row has the correct number of values,
-        if the data types match the schema, and if the primary key value
-        already exists in the table.
+        Use this method to delete the table from the database file.
 
-        Args:
-            row_data (List[Any]): A list of values to be inserted into the table.
+        Parameters:
+            None
 
-        Raises:
-            ValueError: If the row has the incorrect number of values.
-            ValueError: If the data types do not match the schema.
-            ValueError: If the primary key value already exists in the table.
-
-        Notes:
-            - This method is called by the insert_row method.
-            - This method checks if the row can be inserted into the table.
-            - The method checks if the row has the correct number of values.
-            - The method checks if the data types match the schema.
-            - The method checks if the primary key value already exists in the table.
-        """
-        if len(row_data) < len(self.columns):
-            for index, (col, metadata) in enumerate(self.columns.items()):
-                # Check if the column is auto-incrementing
-                if metadata.get('auto_inc', True):
-                    try:
-                        # Get the last value of the column and increment by 1
-                        row_data.insert(index, self.data[len(self.data)-1][index]+1)
-                    except (IndexError) as e:
-                        # Handles the first row of the table
-                        row_data.insert(index, 0)
-
-            # Check that the number of values matches the number of columns
-            #  after accounting for auto-incrementing columns
-            if len(row_data) != len(self.columns):
-                raise ValueError(
-                    'Attempting to insert {} values. Expected {}.'.format(
-                        len(row_data), len(self.columns)
-                    )
-                )
-
-        # Check that user isn't attempting to insert too many values
-        # There's more to it than this. The user cannot insert a value into an auto-incrementing column, which isn't factored in this calculation
-        elif len(row_data) > len(self.columns):
-            raise ValueError(
-                '{} values provided. Expected {}.'.format(
-                    len(row_data), len(self.columns)
-                )
-            )
-        
-        # Check that user isn't inserting a value for table PK
-        #  that already exists in the table, this is not allowed
-        for index, (col, metadata) in enumerate(self.columns.items()):
-            if metadata.get('PK', True):
-                if row_data[index] in [row[index] for row in self.data]:
-                    raise ValueError(f"Primary key value {row_data[index]} already exists in the table.")
-        
-
+        Returns:
+            None
+        '''
+        with open(self.path, 'r') as db_file:
+            db_data = json.load(db_file)
+            db_data.pop(self.table_name)
+            db_file.seek(0)
+            with open(self.path, 'w') as write_file:
+                json.dump(db_data, write_file, indent=4)
 
     def prep_insert_row(self, row_data: List[Any]):
         """
